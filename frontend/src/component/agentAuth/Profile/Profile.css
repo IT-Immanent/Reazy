@@ -1,0 +1,60 @@
+.click_upload {
+    text-align: center;
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid #E0DEF7;
+}
+.upload {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #EBEAFA;
+    border: 1px solid #E0DEF7;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.upload img {
+    width: 100%;
+    max-width: 30px;
+}
+.dragupload h6  {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #21114D;
+    margin-bottom: 0;
+}
+.dragupload h6 span {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 20px;
+    color: #6341E0;
+}
+.agentBTN{
+    margin: 0px !important;
+}
+
+.skips a{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 14px;
+    color: #6341E0;
+}
+.skips a:hover{
+    color: #6341e0a1;
+}
+.updateAgentCreateAcct {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+
