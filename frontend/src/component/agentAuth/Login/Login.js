@@ -1,5 +1,6 @@
 import React from "react";
 import "./Login.css";
+import { Link } from "react-router-dom";
 import MainLogo from "../../../Images/MainLogo.png";
 import google from "../../../Images/Google.png";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -9,8 +10,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 function Login() {
-
-    
   return (
     <section>
       <div className="AgentLoginMain">
@@ -70,20 +69,20 @@ function Login() {
                 </div>
 
                 <div className="AgentLogButton">
-                  <a className="MainBTN" href="#">
+                  <Link className="MainBTN" to="/">
                     Sign in
-                  </a>
-                  <a className="MainBTN2" href="#">
+                  </Link>
+                  <Link className="MainBTN2" to="">
                     <img src={google} alt="" /> Sign in with Google
-                  </a>
+                  </Link>
                 </div>
 
                 <div class="AgentSign">
                   <span className="txt1"> Don&rsquo;t have an account? </span>
-                  <a className="txt2" href="#">
+                  <Link className="txt2" to="/register">
                     {" "}
                     Sign up - it’s FREE!{" "}
-                  </a>
+                  </Link>
                 </div>
               </form>
             </div>
