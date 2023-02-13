@@ -1,6 +1,7 @@
 import React from "react";
 import "./Verify.css";
 import { SideForm } from "../createAccount/createAccount";
+import { Link } from "react-router-dom";
 
 function Verify() {
     
@@ -49,15 +50,15 @@ function Verify() {
               <h6>
                 Didn’t receive a code?{" "}
                 <span>
-                  <a href="#">Request again.</a>
+                  <Link to="">Request again.</Link>
                 </span>{" "}
               </h6>
             </div>
 
             <div className="AgentLogButton">
-              <a className="MainBTN" href="#">
+              <Link className="MainBTN" to="">
                 Continue
-              </a>
+              </Link>
             </div>
           </div>
         </div>

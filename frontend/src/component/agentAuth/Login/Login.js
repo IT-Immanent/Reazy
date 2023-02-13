@@ -62,9 +62,9 @@ function Login() {
                     </label>
                   </div>
                   <div className="AgentForget">
-                    <a href="#" className="">
+                    <Link to="" className="">
                       Forgot Password
-                    </a>
+                    </Link>
                   </div>
                 </div>
 
