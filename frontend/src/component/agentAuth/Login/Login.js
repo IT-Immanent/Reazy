@@ -1,15 +1,22 @@
 import React from "react";
 import "./Login.css";
-import { Link } from "react-router-dom";
 import MainLogo from "../../../Images/MainLogo.png";
-import google from "../../../Images/Google.png";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
-
+import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import "swiper/css";
 import "swiper/css/navigation";
+import LoginForm from "../../../sections/auth/LoginForm";
 
 function Login() {
+
+  const { isLoggedIn } = useSelector((state) => state.auth)
+
+  if (isLoggedIn) {
+    return <Navigate to="/app" />;
+  }
+
   return (
     <section>
       <div className="AgentLoginMain">
@@ -24,7 +31,7 @@ function Login() {
               <h6>Welcome back! Please enter your details.</h6>
             </div>
             <div className="LogInForm">
-              <form>
+              {/* <form>
                 <div className="form-group AdminLogForm">
                   <label className="" for="exampleInputEmail1">
                     Email{" "}
@@ -62,29 +69,30 @@ function Login() {
                     </label>
                   </div>
                   <div className="AgentForget">
-                    <Link to="" className="">
+                    <a to="" className="">
                       Forgot Password
-                    </Link>
+                    </a>
                   </div>
                 </div>
 
                 <div className="AgentLogButton">
-                  <Link className="MainBTN" to="/">
+                  <a  className="MainBTN" to="/">
                     Sign in
-                  </Link>
-                  <Link className="MainBTN2" to="">
+                  </a>
+                  <a className="MainBTN2" to="">
                     <img src={google} alt="" /> Sign in with Google
-                  </Link>
+                  </a>
                 </div>
 
                 <div class="AgentSign">
                   <span className="txt1"> Don&rsquo;t have an account? </span>
-                  <Link className="txt2" to="/register">
+                  <Link component={RouterLink} className="txt2" to="/auth/register">
                     {" "}
                     Sign up - it’s FREE!{" "}
                   </Link>
                 </div>
-              </form>
+              </form> */}
+              <LoginForm />
             </div>
           </div>
           <div className="FooterAgentLogin">
@@ -132,6 +140,7 @@ function Login() {
 }
 
 export default Login;
+
 function AgentSliders() {
   return (
     <div className="AgentSliders">

@@ -1,12 +1,9 @@
 import React from "react";
-import { SideForm } from "../createAccount/createAccount";
+import "./InviteTeam.css"
 
 function InviteTeam() {
     
   return (
-    <section>
-      <div className="Agent_bgg_data">
-        <SideForm />
         <div className="RytAgentAccount">
           <div className="AgentCreateAcct updateAgentCreateAcct">
             <div className="agtCrtHead">
@@ -70,8 +67,6 @@ function InviteTeam() {
             </div>
           </div>
         </div>
-      </div>
-    </section>
   );
 }
 

@@ -1,33 +1,33 @@
-require("dotenv").config();
-const express = require('express');
-const cors = require('cors');
-const cookieParser = require('cookie-parser');
-// const passport = require('passport');
-// const cookieSession = require('cookie-session');
-const { connectDB } = require("./db");
+const app = require("./app"); 
+const dotenv = require('dotenv');
+const mongoose = require("mongoose");
 
+dotenv.config({path: "./config.env"});
 
-// Server configuration..
-const app = express();
-app.use(express.json());
-app.use(cookieParser());
-app.use(cors());
-// app.use(cookieSession({
-//   name: 'google-auth-session',
-//   keys: ['key1', 'key2']
-// }))
-// app.use(passport.initialize());
-// app.use(passport.session());
+process.on('uncaughtException', (err) => {
+    console.log(err);
+    process.exit(1);
+})
 
+const http = require("http");
 
-//   Defining API's
-app.use('/api', require("./Routes/userRoutes"));
+const server = http.createServer(app);
+const DB = process.env.DBURI.replace("<PASSWORD>", process.env.DBPASSWORD)
 
-// Connecting with Database
-connectDB();
+mongoose.connect(DB).then((prop) => {
+    console.log("Boo yeah Mongo Connecteddd !")
+}).catch((err) => {
+    console.log(err)
+})
+const port = process.env.PORT || 8000
 
-// tracking listner
-const port = process.env.PORT;
-app.listen(port, () => {
-  console.log(`listning port localhost : ${port}`);
+server.listen(port, () => {
+    console.log(`App is running on port ${port}`)
+})
+
+process.on("unhandledRejection", (err) => {
+    console.log(err);
+    server.close(() => {
+        process.exit(1);
+    })
 })

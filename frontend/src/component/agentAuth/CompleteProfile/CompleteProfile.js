@@ -1,13 +1,11 @@
 import React from "react";
 import "./Profile.css";
-import { SideForm } from "../createAccount/createAccount";
 import Upload from "../../../Images/upload.png";
+import { Link } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 
-function Profile() {
+function CompleteProfile() {
   return (
-    <section>
-      <div className="Agent_bgg_data">
-        <SideForm />
         <div className="RytAgentAccount">
           <div className="AgentCreateAcct updateAgentCreateAcct">
             <div className="agtCrtHead">
@@ -50,9 +48,9 @@ function Profile() {
             </div>
 
             <div className="AgentLogButton agentBTN ">
-              <a className="MainBTN" href="#">
+              <Link className="MainBTN" to="/auth/business-details" component={RouterLink}>
                 Continue
-              </a>
+              </Link>
             </div>
             <div className="skips text-center">
               <a className="" href="#">
@@ -61,9 +59,7 @@ function Profile() {
             </div>
           </div>
         </div>
-      </div>
-    </section>
   );
 }
 
-export default Profile;
+export default CompleteProfile;

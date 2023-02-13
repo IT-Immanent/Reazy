@@ -1,13 +1,11 @@
 import React from "react";
 import "./BuisenessDetail.css";
-import { SideForm } from "../createAccount/createAccount";
 import Upload from "../../../Images/upload.png";
+import { Link } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 
 function BusinessDetail() {
   return (
-    <section>
-      <div className="Agent_bgg_data">
-        <SideForm />
         <div className="RytAgentAccount">
           <div className="AgentCreateAcct updateAgentCreateAcct">
             <div className="agtCrtHead">
@@ -104,9 +102,9 @@ function BusinessDetail() {
             </div>
 
             <div className="AgentLogButton agentBTN ">
-              <a className="MainBTN" href="#">
+              <Link className="MainBTN" component={RouterLink} to="/auth/invite">
                 Continue
-              </a>
+              </Link>
             </div>
             <div className="skips text-center">
               <a className="" href="#">
@@ -115,8 +113,6 @@ function BusinessDetail() {
             </div>
           </div>
         </div>
-      </div>
-    </section>
   );
 }
 

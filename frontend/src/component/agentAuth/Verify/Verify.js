@@ -1,14 +1,12 @@
 import React from "react";
 import "./Verify.css";
-import { SideForm } from "../createAccount/createAccount";
-import { Link } from "react-router-dom";
+import { Link } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 
 function Verify() {
     
   return (
-    <section>
-      <div className="Agent_bgg_data">
-        <SideForm />
+    
         <div className="RytAgentAccount">
           <div className="AgentCreateAcct">
             <div className="agtCrtHead">
@@ -50,20 +48,19 @@ function Verify() {
               <h6>
                 Didn’t receive a code?{" "}
                 <span>
-                  <Link to="">Request again.</Link>
+                  <a to="#">Request again.</a>
                 </span>{" "}
               </h6>
             </div>
 
             <div className="AgentLogButton">
-              <Link className="MainBTN" to="">
+              <Link component={RouterLink} className="MainBTN" to="/auth/complete-profile">
                 Continue
               </Link>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+   
   );
 }
 

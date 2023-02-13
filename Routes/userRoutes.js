@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const userCtrl = require("../Controller/userCtrl");
+const userCtrl = require("../controllers/userCtrl");
 
 // Register user data API
 router.post("/user/register", userCtrl.register);
