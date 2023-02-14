@@ -98,7 +98,7 @@ const LoginForm = () => {
           <Button className="MainBTN"  type="submit" >
             Sign in
           </Button>
-          <a className="MainBTN2" to="">
+          <a className="MainBTN2" href="">
             <img src={google} alt="" /> Sign in with Google
           </a>
         </div>

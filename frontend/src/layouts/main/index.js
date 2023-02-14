@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import SideBar from "./SideBar";
-import "./mainLayout.css"
+import "./mainLayout.css";
 
 const MainLayout = () => {
-    const { isLoggedIn } = useSelector((state) => state.auth)
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  var midProfile = false;
+  if (
+    window.location.pathname === "/auth/complete-profile" ||
+    window.location.pathname === "/auth/business-details" ||
+    window.location.pathname === "/auth/invite"
+  ) {
+    midProfile = true;
+  }
 
-    if (isLoggedIn) {
-      return <Navigate to="/app" />;
-    }
+  if (isLoggedIn && !midProfile) {
+    return <Navigate to="/app" />;
+  }
 
   return (
     <>

@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
   //   type: String,
   //   required: [true, "Last Name is required"],
   // },
-  avatar: {
+  avatarUrl: {
     type: String,
   },
   email: {

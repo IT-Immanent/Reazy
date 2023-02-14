@@ -7,6 +7,7 @@ const initialState = {
   email: "",
   error: false,
   isLoading: false,
+  stepComplete: 0
 };
 
 const slice = createSlice({
@@ -24,10 +25,14 @@ const slice = createSlice({
     signOut(state, action) {
       state.isLoggedIn = false;
       state.token = "";
+      state.stepComplete = 0
     },
     updateRegisterEmail(state, action) {
       state.email = action.payload.email;
     },
+    updateStepsComplete(state,action){
+      state.stepComplete = action.payload.stepComplete
+    }
   },
 });
 
@@ -142,6 +147,7 @@ export function RegisterUser(formValues) {
         dispatch(
           slice.actions.updateRegisterEmail({ email: formValues.email })
         );
+        dispatch(slice.actions.updateStepsComplete({stepComplete: 1}))
         dispatch(slice.actions.updateIsLoading({ isLoading: false, error: false }));
       })
       .catch((error) => {
@@ -178,9 +184,101 @@ export function VerifyEmail(formValues) {
             token: response.data.token,
           })
         );
+        dispatch(slice.actions.updateStepsComplete({stepComplete: 2}))
       })
       .catch((error) => {
         console.log(error);
+      }).finally(() => {
+        if(!getState().auth.error){
+          window.location.href="/auth/complete-profile"
+        }
+      })
+  };
+}
+
+export function CompleteProfile(formValues) {
+  return async (dispatch, getState) => {
+    await axios
+      .post(
+        "/auth/complete-profile",
+        {
+          ...formValues,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then(function (response) {
+        console.log(response);
+  
+        dispatch(slice.actions.updateStepsComplete({stepComplete: 3}))
+      })
+      .catch((error) => {
+        console.log(error);
+      }).finally(() => {
+        if(!getState().auth.error){
+          window.location.href="/auth/business-details"
+        }
+      })
+  };
+}
+
+export function BusinessProfile(formValues) {
+  return async (dispatch, getState) => {
+    await axios
+      .post(
+        "/auth/business-profile",
+        {
+          ...formValues,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then(function (response) {
+        console.log(response);
+  
+        dispatch(slice.actions.updateStepsComplete({stepComplete: 4}))
+      })
+      .catch((error) => {
+        console.log(error);
+      }).finally(() => {
+        if(!getState().auth.error){
+          window.location.href="/auth/invite"
+        }
+      })
+  };
+}
+
+export function InviteTeam(formValues) {
+  return async (dispatch, getState) => {
+    await axios
+      .post(
+        "/auth/invite",
+        {
+          ...formValues,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then(function (response) {
+        console.log(response);
+  
+        dispatch(slice.actions.updateStepsComplete({stepComplete: 5}))
+      })
+      .catch((error) => {
+        console.log(error);
+      }).finally(() => {
+        if(!getState().auth.error){
+          window.location.href="/app"
+        }
       })
   };
 }

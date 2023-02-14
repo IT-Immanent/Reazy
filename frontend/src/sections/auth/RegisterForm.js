@@ -1,10 +1,7 @@
-import { useTheme } from "@emotion/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
-  Alert,
   IconButton,
   InputAdornment,
-  Stack,
   Button,
 } from "@mui/material";
 import { Eye, EyeSlash } from "phosphor-react";
@@ -27,7 +24,7 @@ const RegisterForm = () => {
       .required("Email is required")
       .email("Email must be valid email address"),
     password: Yup.string().required("Password is required"),
-    mobileNumber: Yup.string().required("Password is required"),
+    mobileNumber: Yup.string().required("Mobile Number is required"),
   });
 
   const defaultValues = {

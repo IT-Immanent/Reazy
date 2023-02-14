@@ -1,23 +1,23 @@
 const mongoose = require('mongoose');
 
-const buisnessDetail = mongoose.Schema({
+const businessDetail = mongoose.Schema({
     user_id: {
         type: String,
         required: true,
     },
-    buisness_name: {
+    businessName: {
         type: String,
     },
-    buisness_logo: {
+    logo: {
         type: String,
     },
-    buisness_address: {
+    address: {
         type: String,
     },
     suburb: {
         type: String,
     },
-    post_code: {
+    postCode: {
         type: String,
     },
     state: {
@@ -28,4 +28,4 @@ const buisnessDetail = mongoose.Schema({
     timestamps: true,
 })
 
-module.exports = mongoose.model('buissness', buisnessDetail)
+module.exports = mongoose.model('BusinessDetail', businessDetail)

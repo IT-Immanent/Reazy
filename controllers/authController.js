@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
+const BusinessDetail = require("../models/buisnessModel");
 const filterObj = require("../utils/filterObj");
 const otpGenerator = require("otp-generator");
 const crypto = require("crypto");
@@ -33,9 +34,9 @@ const authController = {
           message: "Email or Password is Incorect",
         });
       }
-      console.log(userDoc._id,"._id")
+      console.log(userDoc._id, "._id");
       const token = signToken(userDoc._id);
-      console.log(token,"dddddddddddddd")
+      console.log(token, "dddddddddddddd");
       res.status(200).json({
         status: "Success",
         message: "Logged In.",
@@ -47,7 +48,7 @@ const authController = {
   },
   register: async (req, res, next) => {
     try {
-      console.log("hittttttttttt", req.body)
+      console.log("hittttttttttt", req.body);
       const { fullName, email, password, mobileNumber } = req.body;
 
       const filterBody = filterObj(
@@ -93,7 +94,7 @@ const authController = {
         specialChars: false,
       });
 
-      console.log(new_otp, "New ------- otp")
+      console.log(new_otp, "New ------- otp");
       const otp_expiry_time = Date.now() + 10 * 60 * 1000;
 
       const user = await User.findByIdAndUpdate(userId, {
@@ -250,7 +251,7 @@ const authController = {
     await user.save({ validateBeforeSave: false });
     // console.log(resetToken, "reset  ----------------------  Token");
     const resetURL = `http://localhost:3000/auth/new-password/?token=${resetToken}`;
-    console.log(resetURL, ":reset URL")
+    console.log(resetURL, ":reset URL");
     try {
       // TODO => send Email
       res.status(200).json({
@@ -317,6 +318,92 @@ const authController = {
       return res.status(500).json({ msg: error.message });
     }
   },
+
+  completeProfile: async (req, res) => {
+    try {
+      console.log(req.body,"completeProfile (req.body")
+      const { email, position, avatarUrl } = req.body;
+
+      const user = await User.findOne({
+        email,
+      });
+
+      if (!user) {
+        res.status(400).json({
+          staus: "error",
+          message: "email is invalid",
+        });
+        return;
+      }
+
+      user.position = position
+
+      await user.save({ new: true, validateModifyOnly: true });
+
+      // const token = signToken(user._id);
+
+      res.status(200).json({
+        status: "Success",
+        message: "Profile Saved.",
+      });
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
+  },
+  businessDetail: async( req, res) => {
+    try {
+      console.log(req.body,"businessDetail req.body")
+
+      const { email, businessName, address, suburb, postCode, state } = req.body;
+      
+      const user = await User.findOne({
+        email,
+      });
+      
+      if (!user) {
+        res.status(400).json({
+          staus: "error",
+          message: "email is invalid",
+        });
+
+        return;
+      }
+
+      var newBusinessProfile = new BusinessDetail({
+        user_id: user._id,
+        businessName,
+        address,
+        suburb,
+        postCode,
+        state,
+        // logo
+      });
+
+      await newBusinessProfile.save();
+
+      res.status(200).json({
+        status: "Success",
+        message: "Profile Saved.",
+      });
+      
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
+  },
+  inviteTeam: async (req, res) => {
+    try {
+      console.log(req.body,"inviteTeam req.body")
+
+      const { team1, team2, team3, email } = req.body;
+
+      res.status(200).json({
+        status: "Success",
+        message: "Team Invited Successfully.",
+      });
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
+  }
 };
 
 module.exports = authController;

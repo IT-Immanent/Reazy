@@ -11,6 +11,12 @@ router.post('/reset-password', authController.resetPassword)
 router.post('/send-otp', authController.sendOtp)
 router.post('/verify-otp', authController.verifyOtp)
 
+router.post('/complete-profile', authController.completeProfile)
+router.post('/business-profile', authController.businessDetail)
+router.post('/invite', authController.inviteTeam)
+
+
+
 
 
 

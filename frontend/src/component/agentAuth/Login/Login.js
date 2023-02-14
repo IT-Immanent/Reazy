@@ -10,8 +10,7 @@ import "swiper/css/navigation";
 import LoginForm from "../../../sections/auth/LoginForm";
 
 function Login() {
-
-  const { isLoggedIn } = useSelector((state) => state.auth)
+  const { isLoggedIn } = useSelector((state) => state.auth);
 
   if (isLoggedIn) {
     return <Navigate to="/app" />;
@@ -31,67 +30,6 @@ function Login() {
               <h6>Welcome back! Please enter your details.</h6>
             </div>
             <div className="LogInForm">
-              {/* <form>
-                <div className="form-group AdminLogForm">
-                  <label className="" for="exampleInputEmail1">
-                    Email{" "}
-                  </label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    placeholder="Enter your email"
-                  />
-                </div>
-                <div className="form-group AdminLogForm">
-                  <label className="" for="exampleInputPassword1">
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    id="exampleInputPassword1"
-                    placeholder="*****"
-                  />
-                </div>
-                <div className="form-group AgentForgetData">
-                  <div class="form-check AgentCheckt">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="flexCheckDefault"
-                    />
-                    <label className="form-check-label" for="flexCheckDefault">
-                      {" "}
-                      Remember for 30 days{" "}
-                    </label>
-                  </div>
-                  <div className="AgentForget">
-                    <a to="" className="">
-                      Forgot Password
-                    </a>
-                  </div>
-                </div>
-
-                <div className="AgentLogButton">
-                  <a  className="MainBTN" to="/">
-                    Sign in
-                  </a>
-                  <a className="MainBTN2" to="">
-                    <img src={google} alt="" /> Sign in with Google
-                  </a>
-                </div>
-
-                <div class="AgentSign">
-                  <span className="txt1"> Don&rsquo;t have an account? </span>
-                  <Link component={RouterLink} className="txt2" to="/auth/register">
-                    {" "}
-                    Sign up - it’s FREE!{" "}
-                  </Link>
-                </div>
-              </form> */}
               <LoginForm />
             </div>
           </div>

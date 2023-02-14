@@ -1,15 +1,21 @@
 import React from "react";
 import WhiteMainLogo from "../../Images/WhiteMainLogo.png";
 import "./sidebar.css"
+import { useSelector } from "react-redux";
+
 const SideBar = () => {
+  const { stepComplete } = useSelector((state) => state.auth);
+
   return (
     <div className="LeftAgentAccount">
       <div className="TopAgentLogin">
         <img src={WhiteMainLogo} alt="" />
       </div>
       <div className="Agent_account_Data">
-        <ul id="progressbar" class="text-center">
-          <li class="active step0">
+        <ul id="progressbar" className="text-center">
+          <li 
+          className={stepComplete >= 1 ? "active step0" : "step0"}
+          >
             <a href="#">
               <div className="OpenAccount">
                 <h4>Create your account</h4>
@@ -18,7 +24,9 @@ const SideBar = () => {
             </a>
           </li>
 
-          <li class="active step0">
+          <li 
+          className={stepComplete >= 2 ? "active step0" : "step0"}
+          >
             <a href="#">
               <div className="OpenAccount">
                 <h4>Let’s verify your account</h4>
@@ -27,7 +35,9 @@ const SideBar = () => {
             </a>
           </li>
 
-          <li class=" step0">
+          <li 
+          className={stepComplete >= 3 ? "active step0" : "step0"}
+          >
             <a href="#">
               <div className="OpenAccount">
                 <h4>Complete your profile</h4>
@@ -36,7 +46,9 @@ const SideBar = () => {
             </a>
           </li>
 
-          <li class=" step0">
+          <li 
+          className={stepComplete >= 4 ? "active step0" : "step0"}
+          >
             <a href="#">
               <div className="OpenAccount">
                 <h4>Business Details</h4>
@@ -45,7 +57,9 @@ const SideBar = () => {
             </a>
           </li>
 
-          <li class=" step0">
+          <li 
+          className={stepComplete >= 5 ? "active step0" : "step0"}
+          >
             <a href="#">
               <div className="OpenAccount">
                 <h4>Invite your team</h4>
