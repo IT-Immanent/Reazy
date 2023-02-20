@@ -7,6 +7,7 @@ import { RHFTextField, RHFUploadAvatar } from "../../component/hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { BusinessProfile } from "../../redux/slices/auth";
 import { Button } from "@mui/material";
+import RHFSelect from "../../component/hook-form/RHFSelect";
 
 const BusinessProfileForm = () => {
   const dispatch = useDispatch();
@@ -14,11 +15,11 @@ const BusinessProfileForm = () => {
 
   const BusinessProfileSchema = Yup.object().shape({
     businessName: Yup.string().required("Business Name is required"),
-    logo: Yup.string().required("Avatar is required").nullable(true),
+    logo: Yup.string().required("Logo is required").nullable(true),
     address: Yup.string().required("Address is required"),
     suburb: Yup.string().required("Suburb is required"),
     postCode: Yup.string().required("Post Code is required"),
-    // state: Yup.string().required("Post Code is required")
+    state: Yup.object().required("State is required"),
   });
   const defaultValues = {
     businessName: "",
@@ -26,7 +27,7 @@ const BusinessProfileForm = () => {
     address: "",
     suburb: "",
     postCode: "",
-    // state: "",
+    state: "",
   };
   const methods = useForm({
     resolver: yupResolver(BusinessProfileSchema),
@@ -51,19 +52,21 @@ const BusinessProfileForm = () => {
           address: data.address,
           suburb: data.suburb,
           postCode: data.postCode,
+          state: data.state.value,
         },
         "data"
       );
-        dispatch(
-          BusinessProfile({
-            businessName: data.businessName,
-            email,
-            logo: data.logo,
-            address: data.address,
-            suburb: data.suburb,
-            postCode: data.postCode,
-          })
-        );
+      dispatch(
+        BusinessProfile({
+          businessName: data.businessName,
+          email,
+          logo: data.logo,
+          address: data.address,
+          suburb: data.suburb,
+          postCode: data.postCode,
+          state: data.state.value
+        })
+      );
     } catch (error) {
       console.error(error);
       reset();
@@ -113,7 +116,16 @@ const BusinessProfileForm = () => {
           </div>
         </div>
         <div className="form-group AdminLogForm">
-          <label className="" for="exampleInputEmail1">
+          <RHFSelect
+            name="state"
+            label="State"
+            options={[ 
+              { value: "chocolate", label: "Chocolate" }, 
+              { value: "strawberry", label: "Strawberry" },
+              { value: "vanilla", label: "Vanilla" },
+            ]}
+          />
+          {/* <label className="" for="exampleInputEmail1">
             State
           </label>
           <select
@@ -124,7 +136,7 @@ const BusinessProfileForm = () => {
             <option value="1">One</option>
             <option value="2">Two</option>
             <option value="3">Three</option>
-          </select>
+          </select> */}
         </div>
         <div className="AgentLogButton agentBTN ">
           <Button

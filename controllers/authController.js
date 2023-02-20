@@ -34,9 +34,18 @@ const authController = {
           message: "Email or Password is Incorect",
         });
       }
+      if (!userDoc.verified) {
+        res.status(400).json({
+          status: "error",
+          message: "User not verified. We have sent you a mail to verify.",
+        });
+      }
       console.log(userDoc._id, "._id");
+
       const token = signToken(userDoc._id);
+
       console.log(token, "dddddddddddddd");
+      
       res.status(200).json({
         status: "Success",
         message: "Logged In.",
@@ -174,7 +183,7 @@ const authController = {
 
       res.status(200).json({
         status: "Success",
-        message: "Logged In.",
+        message: "Email Verified Successfully.",
         token,
       });
     } catch (error) {
@@ -384,7 +393,7 @@ const authController = {
 
       res.status(200).json({
         status: "Success",
-        message: "Profile Saved.",
+        message: "Business Profile Saved.",
       });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
