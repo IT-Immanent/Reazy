@@ -34,9 +34,18 @@ const authController = {
           message: "Email or Password is Incorect",
         });
       }
+      if (!userDoc.verified) {
+        res.status(400).json({
+          status: "error",
+          message: "User not verified. We have sent you a mail to verify.",
+        });
+      }
       console.log(userDoc._id, "._id");
+
       const token = signToken(userDoc._id);
+
       console.log(token, "dddddddddddddd");
+      
       res.status(200).json({
         status: "Success",
         message: "Logged In.",
@@ -174,7 +183,7 @@ const authController = {
 
       res.status(200).json({
         status: "Success",
-        message: "Logged In.",
+        message: "Email Verified Successfully.",
         token,
       });
     } catch (error) {
@@ -321,7 +330,7 @@ const authController = {
 
   completeProfile: async (req, res) => {
     try {
-      console.log(req.body,"completeProfile (req.body")
+      console.log(req.body, "completeProfile (req.body");
       const { email, position, avatarUrl } = req.body;
 
       const user = await User.findOne({
@@ -336,7 +345,7 @@ const authController = {
         return;
       }
 
-      user.position = position
+      user.position = position;
 
       await user.save({ new: true, validateModifyOnly: true });
 
@@ -350,16 +359,17 @@ const authController = {
       return res.status(500).json({ msg: error.message });
     }
   },
-  businessDetail: async( req, res) => {
+  businessDetail: async (req, res) => {
     try {
-      console.log(req.body,"businessDetail req.body")
+      console.log(req.body, "businessDetail req.body");
 
-      const { email, businessName, address, suburb, postCode, state } = req.body;
-      
+      const { email, businessName, address, suburb, postCode, state } =
+        req.body;
+
       const user = await User.findOne({
         email,
       });
-      
+
       if (!user) {
         res.status(400).json({
           staus: "error",
@@ -383,16 +393,15 @@ const authController = {
 
       res.status(200).json({
         status: "Success",
-        message: "Profile Saved.",
+        message: "Business Profile Saved.",
       });
-      
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }
   },
   inviteTeam: async (req, res) => {
     try {
-      console.log(req.body,"inviteTeam req.body")
+      console.log(req.body, "inviteTeam req.body");
 
       const { team1, team2, team3, email } = req.body;
 
@@ -403,7 +412,7 @@ const authController = {
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }
-  }
+  },
 };
 
 module.exports = authController;

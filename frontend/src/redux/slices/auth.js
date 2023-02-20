@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "../../utils/axios";
+import { ShowSnackBar } from "./app";
 
 const initialState = {
   isLoggedIn: false,
@@ -7,7 +8,7 @@ const initialState = {
   email: "",
   error: false,
   isLoading: false,
-  stepComplete: 0
+  stepComplete: 0,
 };
 
 const slice = createSlice({
@@ -25,14 +26,14 @@ const slice = createSlice({
     signOut(state, action) {
       state.isLoggedIn = false;
       state.token = "";
-      state.stepComplete = 0
+      state.stepComplete = 0;
     },
     updateRegisterEmail(state, action) {
       state.email = action.payload.email;
     },
-    updateStepsComplete(state,action){
-      state.stepComplete = action.payload.stepComplete
-    }
+    updateStepsComplete(state, action) {
+      state.stepComplete = action.payload.stepComplete;
+    },
   },
 });
 
@@ -42,6 +43,7 @@ export default slice.reducer;
 export function LoginUser(formValues) {
   console.log(formValues, "formValues");
   return async (dispatch, getState) => {
+    dispatch(slice.actions.updateIsLoading({ isLoading: true, error: false }));
     await axios
       .post(
         "/auth/login",
@@ -62,9 +64,19 @@ export function LoginUser(formValues) {
             token: response.data.token,
           })
         );
+        dispatch(
+          ShowSnackBar({ severity: "success", message: response.data.message })
+        );
+        dispatch(
+          slice.actions.updateIsLoading({ isLoading: false, error: false })
+        );
       })
       .catch(function (err) {
         console.log(err);
+        dispatch(ShowSnackBar({ severity: "error", message: err.message }));
+        dispatch(
+          slice.actions.updateIsLoading({ isLoading: false, error: true })
+        );
       });
   };
 }
@@ -72,11 +84,15 @@ export function LoginUser(formValues) {
 export function LogoutUser() {
   return async (dispatch, getState) => {
     dispatch(slice.actions.signOut());
+    dispatch(
+      ShowSnackBar({ severity: "success", message: "Logged out successfully!" })
+    );
   };
 }
 
 export function ForgotPassword(formValues) {
   return async (dispatch, getState) => {
+    dispatch(slice.actions.updateIsLoading({ isLoading: true, error: false }));
     await axios
       .post(
         "/auth/forgot-password",
@@ -91,15 +107,26 @@ export function ForgotPassword(formValues) {
       )
       .then((response) => {
         console.log(response);
+        dispatch(
+          ShowSnackBar({ severity: "success", message: response.data.message })
+        );
+        dispatch(
+          slice.actions.updateIsLoading({ isLoading: false, error: false })
+        );
       })
       .catch((error) => {
         console.log(error);
+        dispatch(ShowSnackBar({ severity: "error", message: error.message }));
+        dispatch(
+          slice.actions.updateIsLoading({ isLoading: false, error: true })
+        );
       });
   };
 }
 
 export function NewPassword(formValues) {
   return async (dispatch, getState) => {
+    dispatch(slice.actions.updateIsLoading({ isLoading: true, error: false }));
     await axios
       .post(
         "/auth/reset-password",
@@ -120,9 +147,19 @@ export function NewPassword(formValues) {
             token: response.data.token,
           })
         );
+        dispatch(
+          ShowSnackBar({ severity: "success", message: response.data.message })
+        );
+        dispatch(
+          slice.actions.updateIsLoading({ isLoading: false, error: false })
+        );
       })
       .catch((error) => {
         console.log(error);
+        dispatch(ShowSnackBar({ severity: "error", message: error.message }));
+        dispatch(
+          slice.actions.updateIsLoading({ isLoading: false, error: true })
+        );
       });
   };
 }
@@ -147,12 +184,20 @@ export function RegisterUser(formValues) {
         dispatch(
           slice.actions.updateRegisterEmail({ email: formValues.email })
         );
-        dispatch(slice.actions.updateStepsComplete({stepComplete: 1}))
-        dispatch(slice.actions.updateIsLoading({ isLoading: false, error: false }));
+        dispatch(
+          ShowSnackBar({ severity: "success", message: response.data.message })
+        );
+        dispatch(slice.actions.updateStepsComplete({ stepComplete: 1 }));
+        dispatch(
+          slice.actions.updateIsLoading({ isLoading: false, error: false })
+        );
       })
       .catch((error) => {
         console.log(error);
-        dispatch(slice.actions.updateIsLoading({ isLoading: false, error: true }));
+        dispatch(ShowSnackBar({ severity: "error", message: error.message }));
+        dispatch(
+          slice.actions.updateIsLoading({ error: true, isLoading: false })
+        );
       })
       .finally(() => {
         if (!getState().auth.error) {
@@ -164,6 +209,7 @@ export function RegisterUser(formValues) {
 
 export function VerifyEmail(formValues) {
   return async (dispatch, getState) => {
+    dispatch(slice.actions.updateIsLoading({ isLoading: true, error: false }));
     await axios
       .post(
         "/auth/verify-otp",
@@ -184,20 +230,32 @@ export function VerifyEmail(formValues) {
             token: response.data.token,
           })
         );
-        dispatch(slice.actions.updateStepsComplete({stepComplete: 2}))
+        dispatch(
+          ShowSnackBar({ severity: "success", message: response.data.message })
+        );
+        dispatch(
+          slice.actions.updateIsLoading({ isLoading: false, error: false })
+        );
+        dispatch(slice.actions.updateStepsComplete({ stepComplete: 2 }));
       })
       .catch((error) => {
         console.log(error);
-      }).finally(() => {
-        if(!getState().auth.error){
-          window.location.href="/auth/complete-profile"
-        }
+        dispatch(ShowSnackBar({ severity: "error", message: error.message }));
+        dispatch(
+          slice.actions.updateIsLoading({ error: true, isLoading: false })
+        );
       })
+      .finally(() => {
+        if (!getState().auth.error) {
+          window.location.href = "/auth/complete-profile";
+        }
+      });
   };
 }
 
 export function CompleteProfile(formValues) {
   return async (dispatch, getState) => {
+    dispatch(slice.actions.updateIsLoading({ isLoading: true, error: false }));
     await axios
       .post(
         "/auth/complete-profile",
@@ -212,21 +270,32 @@ export function CompleteProfile(formValues) {
       )
       .then(function (response) {
         console.log(response);
-  
-        dispatch(slice.actions.updateStepsComplete({stepComplete: 3}))
+        dispatch(
+          ShowSnackBar({ severity: "success", message: response.data.message })
+        );
+        dispatch(slice.actions.updateStepsComplete({ stepComplete: 3 }));
+        dispatch(
+          slice.actions.updateIsLoading({ isLoading: false, error: false })
+        );
       })
       .catch((error) => {
         console.log(error);
-      }).finally(() => {
-        if(!getState().auth.error){
-          window.location.href="/auth/business-details"
-        }
+        dispatch(ShowSnackBar({ severity: "error", message: error.message }));
+        dispatch(
+          slice.actions.updateIsLoading({ error: true, isLoading: false })
+        );
       })
+      .finally(() => {
+        if (!getState().auth.error) {
+          window.location.href = "/auth/business-details";
+        }
+      });
   };
 }
 
 export function BusinessProfile(formValues) {
   return async (dispatch, getState) => {
+    dispatch(slice.actions.updateIsLoading({ isLoading: true, error: false }));
     await axios
       .post(
         "/auth/business-profile",
@@ -241,21 +310,32 @@ export function BusinessProfile(formValues) {
       )
       .then(function (response) {
         console.log(response);
-  
-        dispatch(slice.actions.updateStepsComplete({stepComplete: 4}))
+        dispatch(
+          ShowSnackBar({ severity: "success", message: response.data.message })
+        );
+        dispatch(slice.actions.updateStepsComplete({ stepComplete: 4 }));
+        dispatch(
+          slice.actions.updateIsLoading({ isLoading: false, error: false })
+        );
       })
       .catch((error) => {
         console.log(error);
-      }).finally(() => {
-        if(!getState().auth.error){
-          window.location.href="/auth/invite"
-        }
+        dispatch(ShowSnackBar({ severity: "error", message: error.message }));
+        dispatch(
+          slice.actions.updateIsLoading({ error: true, isLoading: false })
+        );
       })
+      .finally(() => {
+        if (!getState().auth.error) {
+          window.location.href = "/auth/invite";
+        }
+      });
   };
 }
 
 export function InviteTeam(formValues) {
   return async (dispatch, getState) => {
+    dispatch(slice.actions.updateIsLoading({ isLoading: true, error: false }));
     await axios
       .post(
         "/auth/invite",
@@ -270,15 +350,25 @@ export function InviteTeam(formValues) {
       )
       .then(function (response) {
         console.log(response);
-  
-        dispatch(slice.actions.updateStepsComplete({stepComplete: 5}))
+        dispatch(
+          ShowSnackBar({ severity: "success", message: response.data.message })
+        );
+        dispatch(slice.actions.updateStepsComplete({ stepComplete: 5 }));
+        dispatch(
+          slice.actions.updateIsLoading({ isLoading: false, error: false })
+        );
       })
       .catch((error) => {
         console.log(error);
-      }).finally(() => {
-        if(!getState().auth.error){
-          window.location.href="/app"
-        }
+        dispatch(ShowSnackBar({ severity: "error", message: error.message }));
+        dispatch(
+          slice.actions.updateIsLoading({ error: true, isLoading: false })
+        );
       })
+      .finally(() => {
+        if (!getState().auth.error) {
+          window.location.href = "/app";
+        }
+      });
   };
 }

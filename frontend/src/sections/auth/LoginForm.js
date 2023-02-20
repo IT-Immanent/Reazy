@@ -15,20 +15,24 @@ import {
 } from "@mui/material";
 import { Eye, EyeSlash } from "phosphor-react";
 import google from "../../Images/Google.png";
+import RHFCheckBox from "../../component/hook-form/RHFCheckBox";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
+  
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
       .required("Email is required")
       .email("Email must be valid email address"),
     password: Yup.string().required("Password is required"),
+    rememberMe: Yup.boolean()
   });
 
   const defaultValues = {
     email: "",
     password: "",
+    rememberMe: false
   };
   const methods = useForm({
     resolver: yupResolver(LoginSchema),
@@ -43,6 +47,7 @@ const LoginForm = () => {
 
   const onSubmit = async (data) => {
     try {
+      console.log(data, "login data")
       dispatch(LoginUser(data));
     } catch (error) {
       console.error(error);
@@ -81,13 +86,13 @@ const LoginForm = () => {
           />
         </div>
         <div className="form-group AgentForgetData">
-          {/* <div class="form-check AgentCheckt">
-            <RHFTextField
-              type="checkbox"
+          <div class="form-check AgentCheckt">
+            <RHFCheckBox
+              name="rememberMe"
               label="Remember for 30 days"
               className="form-check-input"
             />
-          </div> */}
+          </div>
           <div className="AgentForget">
             <Link to="/forgot" component={RouterLink} className="">
               Forgot Password
