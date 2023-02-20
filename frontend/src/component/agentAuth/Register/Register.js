@@ -1,5 +1,6 @@
 import React from "react";
 import "./Register.css";
+import "../../../App.css"
 import RegisterForm from "../../../sections/auth/RegisterForm";
 
 function Register() {
