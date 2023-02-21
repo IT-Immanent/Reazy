@@ -52,7 +52,7 @@ const authController = {
         token,
       });
     } catch (err) {
-      // return res.status(500).json({ msg: err.message });
+      return res.status(500).json({ msg: err.message });
     }
   },
   register: async (req, res, next) => {
