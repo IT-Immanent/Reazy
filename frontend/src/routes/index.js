@@ -72,7 +72,7 @@ const LoginPage = Loadable(
     lazy(() => import("../component/agentAuth/BusinessDetail/BusinessDetail")),
   );
 const CreateProperty = Loadable(
-    lazy(() => import("../pages/dashboard/CreateProperty")),
+    lazy(() => import("../component/dashboard/EmptyProperty/EmptyProperty")),
   );
 
 const Page404 = Loadable(lazy(() => import("../pages/Page404")));

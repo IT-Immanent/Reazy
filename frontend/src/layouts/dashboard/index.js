@@ -12,7 +12,7 @@ const DashboardLayout = () => {
   }
   return (
     <>
-      <Stack direction={"row"}>
+      <Stack className="Reazy_section">
         <SideBar />
         <Outlet />
       </Stack>
