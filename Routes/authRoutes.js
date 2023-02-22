@@ -16,9 +16,4 @@ router.post('/business-profile', authController.businessDetail)
 router.post('/invite', authController.inviteTeam)
 
 
-
-
-
-
-
 module.exports = router;
