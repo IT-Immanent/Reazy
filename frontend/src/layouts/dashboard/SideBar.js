@@ -22,7 +22,7 @@ import { SignOut } from "phosphor-react";
 const getPath = (index) => {
   switch (index) {
     case 0:
-      return "/properties";
+      return "/app";
     case 1:
       return "/listings";
     case 2:
@@ -87,6 +87,7 @@ const Sidebar = () => {
                   <a
                     onClick={() => {
                       setSelected(item.index);
+                      console.log(item.index,"item index")
                       navigate(getPath(item.index));
                     }}
                   >
