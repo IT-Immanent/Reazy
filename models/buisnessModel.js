@@ -28,4 +28,4 @@ const businessDetail = mongoose.Schema({
     timestamps: true,
 })
 
-module.exports = mongoose.model('BusinessDetail', businessDetail)
+module.exports = mongoose.model('BusinessDetail', businessDetail);
