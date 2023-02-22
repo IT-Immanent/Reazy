@@ -7,10 +7,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "First Name is required"],
   },
-  // lastName: {
-  //   type: String,
-  //   required: [true, "Last Name is required"],
-  // },
   avatarUrl: {
     type: String,
   },
@@ -55,6 +51,10 @@ const userSchema = new mongoose.Schema({
   },
   otp: {
     type: String,
+  },
+  creadit: {
+    type: Number,
+    default: 0
   },
   otp_expiry_time: {
     type: Date,
