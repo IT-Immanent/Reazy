@@ -7,6 +7,7 @@ import MainLayout from "../layouts/main";
 import { DEFAULT_PATH } from "../config";
 import LoadingScreen from "../utils/Loader/Loading";
 
+
 const Loadable = (Component) => (props) => {
   return (
     <Suspense fallback={<LoadingScreen />}>
@@ -40,6 +41,11 @@ export default function Router() {
         { element: <Navigate to={DEFAULT_PATH} replace />, index: true },
         { path: "app", element: <CreateProperty /> },
         { path: "forgot", element: <ForgotPassword /> },
+        { path: "listings", element: <Listings /> },
+        { path: "add_address", element: <AddAddress /> },
+        { path: "create_manual", element: <CreateManual /> },
+
+        
 
 
         { path: "404", element: <Page404 /> },
@@ -74,5 +80,13 @@ const LoginPage = Loadable(
 const CreateProperty = Loadable(
     lazy(() => import("../component/dashboard/EmptyProperty/EmptyProperty")),
   );
-
+  const Listings = Loadable(
+    lazy(() => import("../component/dashboard/Listings/Listings")),
+  );
+  const CreateManual = Loadable(
+    lazy(() => import("../component/dashboard/CreateManual/CreateManual")),
+  );
+  const AddAddress = Loadable(
+    lazy(() => import("../component/dashboard/AddAddress/AddAddress")),
+  );
 const Page404 = Loadable(lazy(() => import("../pages/Page404")));

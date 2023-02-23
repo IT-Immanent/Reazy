@@ -359,6 +359,7 @@ const authController = {
       return res.status(500).json({ msg: error.message });
     }
   },
+  
   businessDetail: async (req, res) => {
     try {
       console.log(req.body, "businessDetail req.body");
