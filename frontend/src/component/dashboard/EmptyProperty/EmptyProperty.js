@@ -14,7 +14,7 @@ const EmptyProperties = () => {
           <img src={Illustration} />
           <h4>Create your first Property</h4>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-          <Link variant="primary" component={RouterLink} to="/app">+ Create Property</Link>
+          <Link variant="primary" className="btn btn-primary" component={RouterLink} to="/app">+ Create Property</Link>
         </div>
       </div>
     </>
