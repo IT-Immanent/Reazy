@@ -257,7 +257,7 @@ const authController = {
     }
 
     const resetToken = user.createPasswordResetToken();
-    await user.save({ validateBeforeSave: false });
+    await user.save({ validateBeforeSave: false });0
     // console.log(resetToken, "reset  ----------------------  Token");
     const resetURL = `http://localhost:3000/auth/new-password/?token=${resetToken}`;
     console.log(resetURL, ":reset URL");
@@ -359,7 +359,7 @@ const authController = {
       return res.status(500).json({ msg: error.message });
     }
   },
-  
+
   businessDetail: async (req, res) => {
     try {
       console.log(req.body, "businessDetail req.body");
