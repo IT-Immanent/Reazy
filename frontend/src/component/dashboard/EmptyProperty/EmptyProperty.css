@@ -1,8 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600&display=swap');
 
-* {font-family: 'Inter';font-style: normal;}
-.main_sec h4 {font-weight: 600;font-size: 20px;line-height: 30px;text-align: center;color: #21114D;margin: 24px 0;}
-.btn-primary:hover{color: #6341E0 !important;background: #F7F7FD !important;border: 1px solid #6341E0 !important;}
 
 .main_sec {position: relative;background: #F7F7FD;}
 .EmptyProperties {position: absolute;top: 50%;left: 50%;-ms-transform: translate(-50%, -50%);transform: translate(-50%, -50%);width: 352px;}
