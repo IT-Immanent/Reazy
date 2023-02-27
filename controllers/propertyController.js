@@ -6,7 +6,7 @@ const propertyController = {
   createProperty: async (req, res) => {
     try {
       const {
-        userId,
+        user_id,
         street_address,
         unit_no,
         city,
@@ -15,15 +15,11 @@ const propertyController = {
         representing,
       } = req.body;
 
-      console.log(userId, "-----------");
-
-      console.log(req.body, "000000000");
       // validating user by id
       const user = await User.findOne({
-        _id: userId
+        _id: user_id,
       });
 
-      console.log(user, "11111");
 
       if (!user) {
         res.status(400).json({
@@ -34,7 +30,7 @@ const propertyController = {
       }
 
       let newProperty = new Property({
-        user_id: userId,
+        user_id,
         street_address,
         unit_no,
         city,
@@ -42,13 +38,77 @@ const propertyController = {
         postcode,
         representing,
       });
+
+
       await newProperty.save();
       res.status(200).json({
         status: "Success",
         message: "Property Created.",
       });
+
     } catch (err) {
       return res.status(500).json({ msg: err.message });
+    }
+  },
+
+  propertyInformation: async (req, res) => {
+    // updating property details
+    
+    try {
+      const {
+        user_id,
+        id,
+        property_type,
+        media,
+        price,
+        bond,
+        bed_room,
+        bathroom,
+        car_spaces,
+        select_features,
+        description,
+        date_available,
+        lease_duration,
+      } = req.body;
+
+    // validating user by id
+      const user = await User.findOne({ user_id });
+
+
+      if (!user) {
+        res.status(400).json({
+          staus: "error",
+          message: "user not exsist",
+        });
+        return;
+      }
+
+      //find by id and update field
+      await Property.findOneAndUpdate(
+        { _id: id },
+        {
+          property_type,
+          media,
+          price,
+          bond,
+          bed_room,
+          bathroom,
+          car_spaces,
+          select_features,
+          description,
+          date_available,
+          lease_duration,
+        }
+      );
+
+      res.status(200).json({
+        status: "Success",
+        message: "Property Details Updated",
+      });
+      return;
+
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
     }
   },
 };

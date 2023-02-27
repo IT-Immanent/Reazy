@@ -4,6 +4,8 @@ import React from "react";
 import "./AddAddress.css"
 import "../../common.css"
 import { Link as RouterLink } from "react-router-dom";
+import React from "react";
+import "./AddAddress.css";
 
 const AddAddress = () => {
   return (
@@ -67,8 +69,11 @@ const AddAddress = () => {
         </form>
       </div>
 
+      <div className="PropertyAddress">
+        
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default AddAddress
+export default AddAddress;
