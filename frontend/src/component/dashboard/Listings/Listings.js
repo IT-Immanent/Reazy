@@ -1,13 +1,14 @@
 import React from "react";
 import "./Listings.css";
-import Nav from "react-bootstrap/Nav";
+// import Nav from "react-bootstrap/Nav";
 // import Tab from "react-bootstrap/Tab";
 // import Button from 'react-bootstrap/Button';
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
-import Table from "react-bootstrap/Table";
+import "../../common.css"
+// import Form from "react-bootstrap/Form";
+// import InputGroup from "react-bootstrap/InputGroup";
+// import Table from "react-bootstrap/Table";
 import home_icon from "../../../Images/icons/home_icon.png";
-import Card from "react-bootstrap/Card";
+// import Card from "react-bootstrap/Card";
 import card_profile from "../../../Images/card_profile.png";
 import user from "../../../Images/user.png";
 import {
@@ -40,10 +41,10 @@ const Listings = () => {
             <h2>Properties</h2>
             <p>View your team's properties.</p>
           </div>
-          <Button variant="primary" type="submit">
+          <Button variant="primary" className="btn3" type="submit">
             Export
           </Button>
-          <Button variant="primary" type="submit">
+          <Button variant="primary" className="btn" type="submit">
             + Create Listing
           </Button>
         </div>
